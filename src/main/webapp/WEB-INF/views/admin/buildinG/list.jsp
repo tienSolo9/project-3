@@ -146,6 +146,7 @@
                                                 <div class="col-xs-2">
                                                     <label class="name">District</label>
                                                     <form:select class="form-control" path="district">
+                                                        <form:option value="">Select</form:option>
                                                         <form:options items="${districtC}"/>
                                                     </form:select>
                                                 </div>
@@ -248,7 +249,7 @@
                     </div>
                     <div class="pull-right">
 								<span>
-									<a href="/admin/building-edit" target="_blank">
+									<a href="/admin/building-edit">
 										<button style="background-color: skyblue;" title="Add Building">
 											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                  fill="currentColor" class="bi bi-building-add" viewBox="0 0 16 16">
@@ -303,7 +304,7 @@
                         </thead>
 
                         <tbody>
-                        <c:forEach var="item" items="${buildingList1}">
+                        <c:forEach var="item" items="${buildingList}">
                             <tr class="">
                                 <td class="center">
                                     <label class="pos-rel">
@@ -312,7 +313,7 @@
                                     </label>
                                 </td>
 
-                                <td>${item.name}"</td>
+                                <td>${item.name}</td>
                                 <td>${item.address}</td>
                                 <td>${item.numberOfBasement}</td>
                                 <td>${item.managerPhone}</td>
@@ -400,7 +401,7 @@
                 <input type="hidden" id="buildingId" value="">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="btnAssignmentBuilding">Confirm</button>
+                <button type="button" class="btn btn-primary" id="btnAssignmentBuilding" data-dismiss="modal">Confirm</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -452,7 +453,7 @@
     function assginment(data){
         $.ajax({
             type: "POST",
-            url: "/api/building/add",
+            url: "/api/building/assginmentBuilding",
             data: JSON.stringify(data),
             contentType:"application/json",
             dataType:"JSON",
@@ -467,11 +468,7 @@
     }
 
 
-    // xoa 1
-    function deleteBuilding(data){
-        var data = [data];
-        deleteBuildings(data);
-    }
+
 
     // xoa nhieu
 
@@ -484,7 +481,11 @@
     //
     //     deleteBuildings(data);
     // });
-
+    // xoa 1
+    function deleteBuilding(data){
+        var data = [data];
+        deleteBuildings(data);
+    }
     function testDelete(){
 
         var data = $('#tableForm').find('tbody input[type = checkbox]:checked').map(function(){
@@ -498,7 +499,7 @@
     function deleteBuildings(data){
         $.ajax({
             type: "Delete",
-            url: "/api/building/" + data,
+            url: "/api/building/delete/" + data,
             data: JSON.stringify(data),
             contentType:"application/json",
             dataType:"JSON",
@@ -506,7 +507,7 @@
                 console.log("ok");
             },
             error: function(respond){
-                console.log("gaga");
+                console.log("failed");
             }
 
         });

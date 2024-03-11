@@ -30,12 +30,25 @@ public class BuildingEntity extends BaseEntity{
     @Column(name="managerphone")
     private String managerPhone;
 
+    @Column(name="type")
+    private String typeCode;
     @ManyToMany
     @JoinTable(name= "assignmentbuilding",
-    joinColumns = @JoinColumn(name="buildingid",nullable=false),
-    inverseJoinColumns = @JoinColumn(name="staffid",nullable = false)
+            joinColumns = @JoinColumn(name="buildingid",nullable=false),
+            inverseJoinColumns = @JoinColumn(name="staffid",nullable = false)
     )
     private List<UserEntity> userEntities = new ArrayList<>();
+
+    @OneToMany(mappedBy = "buildingEntity")
+    List<RentAreaEntity> RentAreaEntities = new ArrayList<>();
+
+    public List<RentAreaEntity> getRentAreaEntities() {
+        return RentAreaEntities;
+    }
+
+    public void setRentAreaEntities(List<RentAreaEntity> rentAreaEntities) {
+        RentAreaEntities = rentAreaEntities;
+    }
 
     public List<UserEntity> getUserEntities() {
         return userEntities;
@@ -133,4 +146,11 @@ public class BuildingEntity extends BaseEntity{
         this.managerPhone = managerPhone;
     }
 
+    public String getTypeCode() {
+        return typeCode;
+    }
+
+    public void setTypeCode(String typeCode) {
+        this.typeCode = typeCode;
+    }
 }

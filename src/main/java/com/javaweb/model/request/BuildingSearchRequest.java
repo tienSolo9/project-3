@@ -171,4 +171,6 @@ public class BuildingSearchRequest extends AbstractDTO {
     public void setRentPrice(Long rentPrice) {
         this.rentPrice = rentPrice;
     }
+
+
 }

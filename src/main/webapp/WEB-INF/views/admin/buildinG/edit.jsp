@@ -123,15 +123,15 @@
 
                 <div class="row">
                     <div class="col-xs-12">
-                        <form:form class="form-horizontal" role="form" id="updateForm" modelAttribute="modelEdit" method="GET">
+                        <form:form class="form-horizontal" role="form" id="updateForm" modelAttribute="modelEdit">
                             <div class="form-group">
                                 <div  class="col-xs-2">
                                     <label class="name">
-                                        Name Building
+                                        Name
                                     </label>
                                 </div>
                                 <div class="col-xs-10">
-                                    <form:input class="form-control" path="name"/>
+                                    <form:input path="name" class="form-control"/>
                                 </div>
                             </div>
 
@@ -205,7 +205,6 @@
                                     </label>
                                 </div>
                                 <div class="col-xs-10">
-                                    <input type="text" class="form-control" id="rentArea" name="rentArea">
                                     <form:input path="rentArea" class="form-control"/>
                                 </div>
                             </div>
@@ -249,7 +248,7 @@
                                     </label>
                                 </div>
                                 <div class="col-xs-10">
-                                    <input type="text" class="form-control" id="note" name="name">
+                                    <input type="text" class="form-control" id="note" name="note">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -260,7 +259,7 @@
                                         <button type="button" class="btn btn-primary" id="btnExitBuilding">Exit</button>
                                     </c:if>
                                     <c:if test="${empty modelEdit.id}">
-                                        <button type="button" class="btn btn-primary" id="btnUpdateBuilding">Add</button>
+                                        <a type="button" class="btn btn-primary" id="btnUpdateBuilding" href="/admin/building-list">Add</a>
                                         <button type="button" class="btn btn-primary" id="btnExitBuilding">Exit</button>
                                     </c:if>
                                 </div>
@@ -307,25 +306,25 @@
             data['typeCode'] = typeCode;
 
             if(typeCode != ''){
-                updateBuilding1();
+                updateBuilding1(data);
             }
             else{
                 window.location.href = "/admin/building-edit?typeCode=mkmk";
             }
         });
 
-        function updateBuilding1(){
+        function updateBuilding1(data){
             $.ajax({
-                type: "POST",
-                url: "/api/building",
+                type: "PUT",
+                url: "/api/building/update",
                 data: JSON.stringify(data),
                 contentType:"application/json",
                 dataType:"JSON",
                 success: function(respond){
-                    console.log("ok");
+                    console.log("success")
                 },
                 error: function(respond){
-                    console.log("gaga");
+                    console.log("failed")
                 }
 
             });

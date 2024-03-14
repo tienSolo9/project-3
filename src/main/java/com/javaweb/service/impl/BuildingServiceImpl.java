@@ -77,18 +77,7 @@ public class BuildingServiceImpl implements IBuildingService {
         return result;
     }
 
-    @Override
-    public void saveAllRentAreas(String rentArea, BuildingEntity buildingEntity) {
-        String[] str = rentArea.split(",");
-        for (String item : str) {
-            if (StringUtils.check(item)) {
-                RentAreaEntity it = new RentAreaEntity();
-                it.setValue(Integer.parseInt(item));
-                it.setBuildingEntity(buildingEntity);
-                entityManager.merge(it);
-            }
-        }
-    }
+
 
     @Override
     public void saveAllAssignmentBuildings(Long buildingId, List<Long> staffIds) {

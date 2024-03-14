@@ -32,14 +32,14 @@ public class BuildingEntity extends BaseEntity{
 
     @Column(name="type")
     private String typeCode;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name= "assignmentbuilding",
             joinColumns = @JoinColumn(name="buildingid",nullable=false),
             inverseJoinColumns = @JoinColumn(name="staffid",nullable = false)
     )
     private List<UserEntity> userEntities = new ArrayList<>();
 
-    @OneToMany(mappedBy = "buildingEntity")
+    @OneToMany(mappedBy = "buildingEntity", cascade = CascadeType.ALL)
     List<RentAreaEntity> RentAreaEntities = new ArrayList<>();
 
     public List<RentAreaEntity> getRentAreaEntities() {

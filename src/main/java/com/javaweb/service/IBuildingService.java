@@ -12,7 +12,7 @@ public interface IBuildingService {
     ResponseDTO Staffs(Long buildingId);
     List<BuildingSearchResponse> findAllBuilding(BuildingDTO buildingDTO);
 
-    void saveAllRentAreas(String rentArea, BuildingEntity buildingEntity);
+//    List<RentAreaEntity> getAllRentArea(List<String> )
 
     void saveAllAssignmentBuildings(Long buildingId, List<Long> staffIds);
 }

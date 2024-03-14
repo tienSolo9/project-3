@@ -1,7 +1,6 @@
 package com.javaweb.api.admin;
 
 import com.javaweb.converter.BuildingConverter;
-import com.javaweb.entity.AssignmentBuildingEntity;
 import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.RentAreaEntity;
 import com.javaweb.model.dto.AssignmentBuildingDTO;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -47,9 +47,20 @@ public class BuildingAPI {
     @Transactional
     public void UpdateBuilding(@RequestBody BuildingDTO buildingDTO) {
         BuildingEntity buildingEntity = buildingConverter.toBuildingEntity(buildingDTO);
-        BuildingEntity buildingAfterChanged = entityManager.merge(buildingEntity);
-        iRentAreaEntityRepository.deleteAllByBuildingEntity_id(buildingDTO.getId());
-        iBuildingService.saveAllRentAreas(buildingDTO.getRentArea(),buildingAfterChanged);
+
+        List<RentAreaEntity> rentAreaEntities = new ArrayList<>();
+
+        String[] s = buildingDTO.getRentArea().split(",");
+        for(String it : s){
+            if(!it.equals("")){
+                RentAreaEntity rentAreaEntity = new RentAreaEntity();
+                rentAreaEntity.setValue(Integer.parseInt(it));
+                rentAreaEntity.setBuildingEntity(buildingEntity);
+                rentAreaEntities.add(rentAreaEntity);
+            }
+        }
+        buildingEntity.setRentAreaEntities(rentAreaEntities);
+        entityManager.merge(buildingEntity);
     }
     @PostMapping("/assginmentBuilding")
     @Transactional

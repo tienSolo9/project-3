@@ -417,8 +417,8 @@
         $.ajax({
             type: "GET",
             url: "/api/building/" + buildingId + "/staffs",
-            // data: JSON.stringify(buildingId),
-            // contentType:"application/json",
+            data: JSON.stringify(buildingId),
+            contentType:"application/json",
             dataType:"JSON",
             success: function(response){
                 var row='';
@@ -466,10 +466,6 @@
 
         });
     }
-
-
-
-
     // xoa nhieu
 
     // $('#btnDeleteBuilding').click(function(e){
@@ -484,7 +480,7 @@
     // xoa 1
     function deleteBuilding(data){
         var data = [data];
-        deleteBuildings(data);
+        deleteBuildings(data)
     }
     function testDelete(){
 
@@ -492,7 +488,6 @@
             return $(this).val();
         }).get();
         // tra ve nhung cai da duoc tick
-
         deleteBuildings(data);
     }
     //ajax
@@ -502,12 +497,12 @@
             url: "/api/building/delete/" + data,
             data: JSON.stringify(data),
             contentType:"application/json",
-            dataType:"JSON",
-            success: function(respond){
-                console.log("ok");
+            // dataType:"JSON",
+            success: function(response){
+                alert("xóa thành công");
             },
-            error: function(respond){
-                console.log("failed");
+            error: function(response){
+                alert("xóa thất bại");
             }
 
         });

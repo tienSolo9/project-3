@@ -1,10 +1,11 @@
 package com.javaweb.service.impl;
 
 import com.javaweb.converter.BuildingConverter;
+import com.javaweb.entity.AssignmentBuildingEntity;
 import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.RentAreaEntity;
 import com.javaweb.entity.UserEntity;
-import com.javaweb.model.request.BuildingSearchRequest;
+import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.model.response.StaffResponseDTO;
@@ -13,9 +14,12 @@ import com.javaweb.repository.UserRepository;
 import com.javaweb.repository.IBuildingRepository;
 import com.javaweb.repository.custom.IBuildingRepositoryCustom;
 import com.javaweb.service.IBuildingService;
+import com.javaweb.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +27,8 @@ import java.util.List;
 public class BuildingServiceImpl implements IBuildingService {
     @Autowired
     IBuildingRepository iBuildingRepository;
-
+    @PersistenceContext
+    EntityManager entityManager;
     @Autowired
     IBuildingRepositoryCustom iBuildingRepositoryCustom;
     @Autowired
@@ -61,8 +66,8 @@ public class BuildingServiceImpl implements IBuildingService {
     }
 
     @Override
-    public List<BuildingSearchResponse> findAllBuilding(BuildingSearchRequest buildingSearchRequest) {
-        List<BuildingEntity> ListBuilding = iBuildingRepositoryCustom.getAllBuildings(buildingSearchRequest);
+    public List<BuildingSearchResponse> findAllBuilding(BuildingDTO buildingDTO) {
+        List<BuildingEntity> ListBuilding = iBuildingRepositoryCustom.getAllBuildings(buildingDTO);
         List<BuildingSearchResponse> result = new ArrayList<>();
 
         for(BuildingEntity item : ListBuilding){
@@ -73,20 +78,26 @@ public class BuildingServiceImpl implements IBuildingService {
     }
 
     @Override
-    public List<BuildingEntity> getBuildingByIds(List<Long> ids) {
-        List<BuildingEntity> result = new ArrayList<>();
-        for(Long item : ids){
-            BuildingEntity buildingEntity = iBuildingRepository.findById(item).get();
-            result.add(buildingEntity);
+    public void saveAllRentAreas(String rentArea, BuildingEntity buildingEntity) {
+        String[] str = rentArea.split(",");
+        for (String item : str) {
+            if (StringUtils.check(item)) {
+                RentAreaEntity it = new RentAreaEntity();
+                it.setValue(Integer.parseInt(item));
+                it.setBuildingEntity(buildingEntity);
+                entityManager.merge(it);
+            }
         }
-        return result;
     }
 
     @Override
-    public List<RentAreaEntity> getRentAreasById(Long id) {
-        List<RentAreaEntity> result = iRentAreaEntityRepository.findRentAreaEntitiesByBuildingEntity_id(id);
-        return result;
+    public void saveAllAssignmentBuildings(Long buildingId, List<Long> staffIds) {
+        for (Long item : staffIds) {
+            AssignmentBuildingEntity it = new AssignmentBuildingEntity();
+            it.setBuildingid(buildingId);
+            it.setStaffId(item);
+            entityManager.persist(it);
+        }
     }
-
 
 }

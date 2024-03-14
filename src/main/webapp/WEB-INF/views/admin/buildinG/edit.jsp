@@ -255,11 +255,11 @@
                                 <label class="col-xs-4"></label>
                                 <div class="col-xs-8">
                                     <c:if test="${not empty modelEdit.id}">
-                                        <a type="button" class="btn btn-primary" id="btnUpdateBuilding" href="/admin/building-list">Update</a>
+                                        <button type="button" class="btn btn-primary" id="btnUpdateBuilding">Update</button>
                                         <button type="button" class="btn btn-primary" id="btnExitBuilding">Exit</button>
                                     </c:if>
                                     <c:if test="${empty modelEdit.id}">
-                                        <a type="button" class="btn btn-primary" id="btnUpdateBuilding" href="/admin/building-list">Add</a>
+                                        <button type="button" class="btn btn-primary" id="btnUpdateBuilding">Add</button>
                                         <button type="button" class="btn btn-primary" id="btnExitBuilding">Exit</button>
                                     </c:if>
                                 </div>
@@ -291,6 +291,9 @@
     <script src="assets/js/jquery.2.1.1.min.js"></script>
 
     <script>
+        function refresh(url){
+            window.location.href = url;
+        }
         $('#btnUpdateBuilding').click(function(){
             var data = {};
             var typeCode = [];
@@ -306,27 +309,26 @@
             data['typeCode'] = typeCode;
 
             if(typeCode != ''){
-                updateBuilding1(data);
+                updateBuilding(data)
             }
             else{
-                window.location.href = "/admin/building-edit?typeCode=mkmk";
+                alert("thêm thất bại");
             }
         });
 
-        function updateBuilding1(data){
+        function updateBuilding(data){
             $.ajax({
                 type: "PUT",
                 url: "/api/building/update",
                 data: JSON.stringify(data),
                 contentType:"application/json",
-                dataType:"JSON",
-                success: function(respond){
-                    console.log("success")
+                // dataType:"JSON",
+                success: function(response){
+                    alert("thêm thành công");
                 },
-                error: function(respond){
-                    console.log("failed")
+                error: function(response){
+                    alert("thêm thất bại");
                 }
-
             });
         }
         $('#btnExitBuilding').click(function (){

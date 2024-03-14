@@ -19,9 +19,28 @@ public class BuildingDTO extends AbstractDTO{
     private Long rentPriceTo;
     private String managerName;
     private String managerPhone;
+
+    private String rentArea;
+
+    private Long rentPrice;
     private Long staffId;
     private List<String> typeCode;
 
+    public Long getRentPrice() {
+        return rentPrice;
+    }
+
+    public void setRentPrice(Long rentPrice) {
+        this.rentPrice = rentPrice;
+    }
+
+    public String getRentArea() {
+        return rentArea;
+    }
+
+    public void setRentArea(String rentArea) {
+        this.rentArea = rentArea;
+    }
 
     public String getName() {
         return name;

@@ -2,7 +2,7 @@ package com.javaweb.converter;
 
 import com.javaweb.entity.RentAreaEntity;
 import com.javaweb.enums.districtCode;
-import com.javaweb.model.request.BuildingSearchRequest;
+import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.repository.IRentAreaEntityRepository;
 import com.javaweb.utils.StringUtils;
 import org.modelmapper.ModelMapper;
@@ -24,8 +24,7 @@ public class BuildingConverter {
     EntityManager entityManager;
     @Autowired
     ModelMapper modelMapper;
-    @Autowired
-    IRentAreaEntityRepository iRentAreaEntityRepository;
+
 
     public BuildingSearchResponse toBuildingResponse(BuildingEntity buildingEntity) {
         BuildingSearchResponse result = modelMapper.map(buildingEntity, BuildingSearchResponse.class);
@@ -40,8 +39,8 @@ public class BuildingConverter {
         return result;
     }
 
-    public BuildingSearchRequest toBuildingRequest(BuildingEntity buildingEntity) {
-        BuildingSearchRequest buildingSearchRequest = modelMapper.map(buildingEntity, BuildingSearchRequest.class);
+    public BuildingDTO toBuildingDTO(BuildingEntity buildingEntity) {
+        BuildingDTO buildingDTO = modelMapper.map(buildingEntity, BuildingDTO.class);
 
         String typeCode = buildingEntity.getTypeCode();
         if (StringUtils.check(typeCode)) {
@@ -50,36 +49,20 @@ public class BuildingConverter {
             for (String it : str) {
                 typeCodes.add(it);
             }
-            buildingSearchRequest.setTypeCode(typeCodes);
+            buildingDTO.setTypeCode(typeCodes);
         }
 
         List<RentAreaEntity> rentAreas = buildingEntity.getRentAreaEntities();
         String rentArea = rentAreas.stream().map(it -> it.getValue().toString()).collect(Collectors.joining(","));
-        buildingSearchRequest.setRentArea(rentArea);
-        return buildingSearchRequest;
+        buildingDTO.setRentArea(rentArea);
+        return buildingDTO;
     }
 
-    public BuildingEntity toBuildingEntity(BuildingSearchRequest buildingSearchRequest) {
-        BuildingEntity buildingEntity = modelMapper.map(buildingSearchRequest, BuildingEntity.class);
-        List<String> types = buildingSearchRequest.getTypeCode();
+    public BuildingEntity toBuildingEntity(BuildingDTO buildingDTO) {
+        BuildingEntity buildingEntity = modelMapper.map(buildingDTO, BuildingEntity.class);
+        List<String> types = buildingDTO.getTypeCode();
         String typeCode = types.stream().map(it -> it.toString()).collect(Collectors.joining(","));
         buildingEntity.setTypeCode(typeCode);
-
-        String rentArea = buildingSearchRequest.getRentArea();
-        String[] str = rentArea.split(",");
-        List<RentAreaEntity> ExistRentAreas = iRentAreaEntityRepository.findRentAreaEntitiesByBuildingEntity_id(buildingEntity.getId());
-        for (RentAreaEntity it : ExistRentAreas) {
-            entityManager.remove(it);
-        }
-
-        for (String item : str) {
-            if(StringUtils.check(item)){
-                RentAreaEntity it = new RentAreaEntity();
-                it.setValue(Integer.parseInt(item));
-                it.setBuildingEntity(buildingEntity);
-                entityManager.merge(it);
-            }
-        }
 
 
         return buildingEntity;

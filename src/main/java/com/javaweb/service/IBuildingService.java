@@ -2,6 +2,7 @@ package com.javaweb.service;
 
 import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.RentAreaEntity;
+import com.javaweb.entity.UserEntity;
 import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.model.response.ResponseDTO;
@@ -13,6 +14,5 @@ public interface IBuildingService {
     List<BuildingSearchResponse> findAllBuilding(BuildingDTO buildingDTO);
 
     void saveAllRentAreas(String rentArea, BuildingEntity buildingEntity);
-
-    void saveAllAssignmentBuildings(Long buildingId, List<Long> staffIds);
+    void saveThumbnail(BuildingDTO buildingDTO, BuildingEntity buildingEntity);
 }

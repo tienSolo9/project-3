@@ -26,6 +26,36 @@ public class BuildingDTO extends AbstractDTO{
     private Long staffId;
     private List<String> typeCode;
 
+    private String image;
+
+    private String imageBase64;
+
+    private String imageName;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getImageBase64() {
+        return imageBase64;
+    }
+
+    public void setImageBase64(String imageBase64) {
+        this.imageBase64 = imageBase64;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
     public Long getRentPrice() {
         return rentPrice;
     }

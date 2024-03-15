@@ -1,5 +1,6 @@
 <%@include file="/common/taglib.jsp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <title>Update</title>
@@ -7,16 +8,25 @@
 <body>
 <div class="main-container" id="main-container">
     <script type="text/javascript">
-        try { ace.settings.check('main-container', 'fixed') } catch (e) { }
+        try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }
     </script>
 
     <div id="sidebar" class="sidebar                  responsive">
         <script type="text/javascript">
-            try { ace.settings.check('sidebar', 'fixed') } catch (e) { }
+            try {
+                ace.settings.check('sidebar', 'fixed')
+            } catch (e) {
+            }
         </script>
 
         <script type="text/javascript">
-            try { ace.settings.check('sidebar', 'collapsed') } catch (e) { }
+            try {
+                ace.settings.check('sidebar', 'collapsed')
+            } catch (e) {
+            }
         </script>
     </div>
 
@@ -24,7 +34,10 @@
         <div class="main-content-inner">
             <div class="breadcrumbs" id="breadcrumbs">
                 <script type="text/javascript">
-                    try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+                    try {
+                        ace.settings.check('breadcrumbs', 'fixed')
+                    } catch (e) {
+                    }
                 </script>
 
                 <ul class="breadcrumb">
@@ -39,7 +52,7 @@
                     <form class="form-search">
 							<span class="input-icon">
 								<input type="text" placeholder="Search ..." class="nav-search-input"
-                                       id="nav-search-input" autocomplete="off" />
+                                       id="nav-search-input" autocomplete="off"/>
 								<i class="ace-icon fa fa-search nav-search-icon"></i>
 							</span>
                     </form>
@@ -67,27 +80,27 @@
                             </div>
 
                             <div class="ace-settings-item">
-                                <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-navbar" />
+                                <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-navbar"/>
                                 <label class="lbl" for="ace-settings-navbar"> Fixed Navbar</label>
                             </div>
 
                             <div class="ace-settings-item">
-                                <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-sidebar" />
+                                <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-sidebar"/>
                                 <label class="lbl" for="ace-settings-sidebar"> Fixed Sidebar</label>
                             </div>
 
                             <div class="ace-settings-item">
-                                <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-breadcrumbs" />
+                                <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-breadcrumbs"/>
                                 <label class="lbl" for="ace-settings-breadcrumbs"> Fixed Breadcrumbs</label>
                             </div>
 
                             <div class="ace-settings-item">
-                                <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl" />
+                                <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl"/>
                                 <label class="lbl" for="ace-settings-rtl"> Right To Left (rtl)</label>
                             </div>
 
                             <div class="ace-settings-item">
-                                <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-add-container" />
+                                <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-add-container"/>
                                 <label class="lbl" for="ace-settings-add-container">
                                     Inside
                                     <b>.container</b>
@@ -97,17 +110,17 @@
 
                         <div class="pull-left width-50">
                             <div class="ace-settings-item">
-                                <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-hover" />
+                                <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-hover"/>
                                 <label class="lbl" for="ace-settings-hover"> Submenu on Hover</label>
                             </div>
 
                             <div class="ace-settings-item">
-                                <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-compact" />
+                                <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-compact"/>
                                 <label class="lbl" for="ace-settings-compact"> Compact Sidebar</label>
                             </div>
 
                             <div class="ace-settings-item">
-                                <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-highlight" />
+                                <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-highlight"/>
                                 <label class="lbl" for="ace-settings-highlight"> Alt. Active Item</label>
                             </div>
                         </div><!-- /.pull-left -->
@@ -125,7 +138,7 @@
                     <div class="col-xs-12">
                         <form:form class="form-horizontal" role="form" id="updateForm" modelAttribute="modelEdit">
                             <div class="form-group">
-                                <div  class="col-xs-2">
+                                <div class="col-xs-2">
                                     <label class="name">
                                         Name
                                     </label>
@@ -136,7 +149,7 @@
                             </div>
 
                             <div class="form-group">
-                                <div  class="col-xs-2">
+                                <div class="col-xs-2">
                                     <label class="name">
                                         District
                                     </label>
@@ -149,7 +162,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div  class="col-xs-2">
+                                <div class="col-xs-2">
                                     <label class="name">
                                         Ward
                                     </label>
@@ -159,7 +172,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div  class="col-xs-2">
+                                <div class="col-xs-2">
                                     <label class="name">
                                         Street
                                     </label>
@@ -169,7 +182,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div  class="col-xs-2">
+                                <div class="col-xs-2">
                                     <label class="name">
                                         Number Of Basement
                                     </label>
@@ -179,7 +192,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div  class="col-xs-2">
+                                <div class="col-xs-2">
                                     <label class="name">
                                         floorArea
                                     </label>
@@ -189,7 +202,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div  class="col-xs-2">
+                                <div class="col-xs-2">
                                     <label class="name">
                                         Direction
                                     </label>
@@ -199,7 +212,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div  class="col-xs-2">
+                                <div class="col-xs-2">
                                     <label class="name">
                                         Rent Area
                                     </label>
@@ -211,7 +224,7 @@
 
 
                             <div class="form-group">
-                                <div  class="col-xs-2">
+                                <div class="col-xs-2">
                                     <label class="name">
                                         Manager Name
                                     </label>
@@ -221,7 +234,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div  class="col-xs-2">
+                                <div class="col-xs-2">
                                     <label class="name">
                                         Manager Phone
                                     </label>
@@ -231,7 +244,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div  class="col-xs-2">
+                                <div class="col-xs-2">
                                     <label class="name">
                                         Type Building
                                     </label>
@@ -242,7 +255,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div  class="col-xs-2">
+                                <div class="col-xs-2">
                                     <label class="name">
                                         Note
                                     </label>
@@ -251,17 +264,31 @@
                                     <input type="text" class="form-control" id="note" name="note">
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 no-padding-right">Hình đại diện</label>
+                                <form:hidden path="image"/>
+                                <input class="col-sm-3 no-padding-right" type="file" id="uploadImage">
+                                <div class="col-sm-9">
+                                        <c:set var="imagePath" value="/repository${modelEdit.image}" />
+                                        <img src="${imagePath}" id="viewImage" width="300px" height="300px"
+                                             style="margin-top: 50px">
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label class="col-xs-4"></label>
                                 <div class="col-xs-8">
                                     <c:if test="${not empty modelEdit.id}">
-                                        <button type="button" class="btn btn-primary" id="btnUpdateBuilding">Update</button>
+                                        <button type="button" class="btn btn-primary" id="btnUpdateBuilding">Update
+                                        </button>
                                         <button type="button" class="btn btn-primary" id="btnExitBuilding">Exit</button>
                                     </c:if>
                                     <c:if test="${empty modelEdit.id}">
-                                        <button type="button" class="btn btn-primary" id="btnUpdateBuilding">Add</button>
+                                        <button type="button" class="btn btn-primary" id="btnUpdateBuilding">Add
+                                        </button>
                                         <button type="button" class="btn btn-primary" id="btnExitBuilding">Exit</button>
                                     </c:if>
+                                    <img src="/img/loading.gif" style="display: none; height: 100px" id="loading_image">
                                 </div>
                             </div>
                             <form:hidden path="id" id="buildingId"/>
@@ -291,50 +318,78 @@
     <script src="assets/js/jquery.2.1.1.min.js"></script>
 
     <script>
-        function refresh(url){
+        function refresh(url) {
             window.location.href = url;
         }
-        $('#btnUpdateBuilding').click(function(){
+        var imageBase64 = '';
+        var imageName = '';
+        $('#btnUpdateBuilding').click(function () {
             var data = {};
             var typeCode = [];
             var formData = $('#updateForm').serializeArray();
-            $.each(formData,function(i, v){
-                if(v.name != 'typeCode'){
+            $.each(formData, function (i, v) {
+                if (v.name != 'typeCode') {
                     data[v.name] = v.value;
                 }
-                else{
+                else {
                     typeCode.push(v.value);
                 }
+                if('' !== imageBase64){
+                    data['imageBase64'] = imageBase64;
+                    data['imageName'] = imageName;
+                }
             });
-            data['typeCode'] = typeCode;
 
-            if(typeCode != ''){
+            data['typeCode'] = typeCode;
+            $('#loading_image').show();
+            if (typeCode != '') {
                 updateBuilding(data)
-            }
-            else{
+            } else {
                 alert("thêm thất bại");
             }
         });
 
-        function updateBuilding(data){
+        function updateBuilding(data) {
             $.ajax({
                 type: "PUT",
                 url: "/api/building/update",
                 data: JSON.stringify(data),
-                contentType:"application/json",
+                contentType: "application/json",
                 // dataType:"JSON",
-                success: function(response){
+                success: function (response) {
                     alert("thêm thành công");
                 },
-                error: function(response){
+                error: function (response) {
                     alert("thêm thất bại");
                 }
             });
         }
-        $('#btnExitBuilding').click(function (){
-           window.location.href = "/admin/building-list";
+
+        $('#btnExitBuilding').click(function () {
+            window.location.href = "/admin/building-list";
         });
+        $('#uploadImage').change(function (event) {
+            var reader = new FileReader();
+            var file = $(this)[0].files[0];
+            reader.onload = function (e) {
+                imageBase64 = e.target.result;
+                imageName = file.name;
+            };
+            reader.readAsDataURL(file);
+            openImage(this, "viewImage");
+        });
+
+        function openImage(input, imageView) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#' + imageView).attr('src', reader.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
     </script>
+
 </div>
 </body>
 </html>

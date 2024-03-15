@@ -32,6 +32,9 @@ public class BuildingEntity extends BaseEntity{
 
     @Column(name="type")
     private String typeCode;
+
+    @Column(name="image")
+    private String image;
     @ManyToMany
     @JoinTable(name= "assignmentbuilding",
             joinColumns = @JoinColumn(name="buildingid",nullable=false),
@@ -152,5 +155,13 @@ public class BuildingEntity extends BaseEntity{
 
     public void setTypeCode(String typeCode) {
         this.typeCode = typeCode;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

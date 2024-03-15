@@ -1,7 +1,6 @@
 package com.javaweb.service.impl;
 
 import com.javaweb.converter.BuildingConverter;
-import com.javaweb.entity.AssignmentBuildingEntity;
 import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.RentAreaEntity;
 import com.javaweb.entity.UserEntity;
@@ -15,11 +14,14 @@ import com.javaweb.repository.IBuildingRepository;
 import com.javaweb.repository.custom.IBuildingRepositoryCustom;
 import com.javaweb.service.IBuildingService;
 import com.javaweb.utils.StringUtils;
+import com.javaweb.utils.UploadFileUtils;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,25 @@ public class BuildingServiceImpl implements IBuildingService {
 
     @Autowired
     IRentAreaEntityRepository iRentAreaEntityRepository;
+
+    private final UploadFileUtils uploadFileUtils = new UploadFileUtils();
+    @Override
+    public void saveThumbnail(BuildingDTO buildingDTO, BuildingEntity buildingEntity) {
+        String path = "/building/" + buildingDTO.getImageName();
+        if (null != buildingDTO.getImageBase64()) {
+            if (null != buildingEntity.getImage()) {
+                if (!path.equals(buildingEntity.getImage())) {
+                    File file = new File("D://office" + buildingEntity.getImage());
+                    file.delete();
+                }
+            }
+            String base64Code = buildingDTO.getImageBase64();
+            String isBase64 = base64Code.substring(base64Code.indexOf(",") + 1);
+            byte[] bytes = Base64.decodeBase64(isBase64.getBytes());
+            uploadFileUtils.writeOrUpdate(path, bytes);
+            buildingEntity.setImage(path);
+        }
+    }
     @Override
     public ResponseDTO Staffs(Long buildingId) {
         BuildingEntity buildingEntity = iBuildingRepository.findById(buildingId).get();
@@ -65,6 +86,7 @@ public class BuildingServiceImpl implements IBuildingService {
         return result;
     }
 
+
     @Override
     public List<BuildingSearchResponse> findAllBuilding(BuildingDTO buildingDTO) {
         List<BuildingEntity> ListBuilding = iBuildingRepositoryCustom.getAllBuildings(buildingDTO);
@@ -90,14 +112,6 @@ public class BuildingServiceImpl implements IBuildingService {
         }
     }
 
-    @Override
-    public void saveAllAssignmentBuildings(Long buildingId, List<Long> staffIds) {
-        for (Long item : staffIds) {
-            AssignmentBuildingEntity it = new AssignmentBuildingEntity();
-            it.setBuildingid(buildingId);
-            it.setStaffId(item);
-            entityManager.persist(it);
-        }
-    }
+
 
 }

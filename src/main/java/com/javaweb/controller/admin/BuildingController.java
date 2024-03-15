@@ -11,7 +11,9 @@ import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.repository.IBuildingRepository;
 import com.javaweb.service.IBuildingService;
 import com.javaweb.service.impl.UserService;
+import com.javaweb.utils.DisplayTagUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,10 +37,13 @@ public class BuildingController {
     @GetMapping(value="/admin/building-list")
     public ModelAndView buildingList(@ModelAttribute BuildingDTO buildingDTO, HttpServletRequest request){
         ModelAndView mav = new ModelAndView("admin/building/list");
-
+        DisplayTagUtils.of(request, buildingDTO);
         // process data
-        List<BuildingSearchResponse> buildingList = iBuildingService.findAllBuilding(buildingDTO);
+        List<BuildingSearchResponse> buildingList = iBuildingService.findAllBuilding(buildingDTO, PageRequest.of(buildingDTO.getPage() - 1, buildingDTO.getMaxPageItems()));
         //
+        buildingDTO.setListResult(buildingList);
+        buildingDTO.setTotalItems(10);
+
         Map<Long,String> rs = userService.getStaffs();
 
         mav.addObject("buildingList", buildingList);

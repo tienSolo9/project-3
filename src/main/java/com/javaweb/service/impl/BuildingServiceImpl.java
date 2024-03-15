@@ -17,6 +17,8 @@ import com.javaweb.utils.StringUtils;
 import com.javaweb.utils.UploadFileUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -88,8 +90,9 @@ public class BuildingServiceImpl implements IBuildingService {
 
 
     @Override
-    public List<BuildingSearchResponse> findAllBuilding(BuildingDTO buildingDTO) {
-        List<BuildingEntity> ListBuilding = iBuildingRepositoryCustom.getAllBuildings(buildingDTO);
+    public List<BuildingSearchResponse> findAllBuilding(BuildingDTO buildingDTO, Pageable pageable) {
+        Page<BuildingEntity> buildings = iBuildingRepositoryCustom.getAllBuildings(buildingDTO, pageable);
+        List<BuildingEntity> ListBuilding = buildings.getContent();
         List<BuildingSearchResponse> result = new ArrayList<>();
 
         for(BuildingEntity item : ListBuilding){

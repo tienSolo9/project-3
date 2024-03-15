@@ -132,7 +132,7 @@
                                                    export="false"
                                                    class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer"
                                                    style="margin: 3em 0 1.5em;">
-                                        <display:column title="<fieldset class='form-group'>
+                                        <display:column title="<fieldset class='form-group'
 												        <input type='checkbox' id='checkAll' class='check-box-element'>
 												        </fieldset>" class="center select-cell"
                                                         headerClass="center select-cell">

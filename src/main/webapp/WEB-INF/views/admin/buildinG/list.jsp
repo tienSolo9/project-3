@@ -1,7 +1,7 @@
 <%@include file="/common/taglib.jsp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:url var="buildingListURL" value="/admin/building-list"/>
-
+<%@ taglib prefix="display" uri="http://displaytag.sf.net"%>
 <html>
 <head>
     <title>List Building</title>
@@ -282,78 +282,51 @@
 
                 <!-- List Building -->
                 <div class="col-xs-12">
-                    <table id="tableForm" class="table table-striped table-bordered table-hover"
-                           style="margin-top: 2cm">
-                        <thead>
-                        <tr>
-                            <th class="center">
-                                <label class="pos-rel">
-                                    <input type="checkbox" class="ace">
-                                    <span class="lbl"></span>
-                                </label>
-                            </th>
-                            <th>Name Building</th>
-                            <th>Address</th>
-                            <th>Number of Basement</th>
-                            <th>Manager Phone</th>
-                            <th>Manager Name</th>
-                            <th>Floor Area</th>
-                            <th>Rent Area</th>
-                            <th>Operate</th>
-                        </tr>
-                        </thead>
+                    <display:table name="modelSearch.listResult" cellspacing="0" cellpadding="0"
+                                   requestURI="/admin/building-list" partialList="true" sort="external"
+                                   size="${modelSearch.totalItems}" defaultsort="2" defaultorder="ascending"
+                                   id="tableList" pagesize="${modelSearch.maxPageItems}"
+                                   export="false"
+                                   class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer"
+                                   style="margin: 3em 0 1.5em;">
+                        <display:column title="<fieldset class='form-group'
+												        <input type='checkbox' id='checkAll' class='check-box-element'>
+												        </fieldset>" class="center select-cell"
+                                        headerClass="center select-cell">
 
-                        <tbody>
-                        <c:forEach var="item" items="${buildingList}">
-                            <tr class="">
-                                <td class="center">
-                                    <label class="pos-rel">
-                                        <input type="checkbox" class="ace" value="${item.id}">
-                                        <span class="lbl"></span>
-                                    </label>
-                                </td>
+                            <fieldset>
+                                <input type="checkbox"  name="checkList" value="${tableList.id}"
+                                       id="checkbox_${tableList.id}" class="check-box-element"/>
+                            </fieldset>
+                        </display:column>
+                        <display:column headerClass="text-left" property="name" title="Name Building"/>
+                        <display:column headerClass="text-left" property="address" title="Address"/>
+                        <display:column headerClass="text-left" property="numberOfBasement" title="Number of Basement"/>
+                        <display:column headerClass="text-left" property="managerPhone" title="Manager Phone"/>
+                        <display:column headerClass="text-left" property="managerName" title="Manager Name"/>
+                        <display:column headerClass="text-left" property="floorArea" title="Floor Area"/>
+                        <display:column headerClass="text-left" property="rentArea" title="Rent Area"/>
+                        <display:column headerClass="text-left"  title="Operate">
+                            <button title="Assignment Building" Onclick="assignmentBuilding(${tableList.id})" type="button" class="btn btn-success" >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase" viewBox="0 0 16 16">
+                                    <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5m1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0M1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5"></path>
+                                </svg>
+                            </button>
+                            <a title="Update Building" href="/admin/building-edit-${tableList.id}">
+                                <button type="button" class="btn btn-outline-danger">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-browser-chrome" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M16 8a8 8 0 0 1-7.022 7.94l1.902-7.098a3 3 0 0 0 .05-1.492A3 3 0 0 0 10.237 6h5.511A8 8 0 0 1 16 8M0 8a8 8 0 0 0 7.927 8l1.426-5.321a3 3 0 0 1-.723.255 3 3 0 0 1-1.743-.147 3 3 0 0 1-1.043-.7L.633 4.876A8 8 0 0 0 0 8m5.004-.167L1.108 3.936A8.003 8.003 0 0 1 15.418 5H8.066a3 3 0 0 0-1.252.243 2.99 2.99 0 0 0-1.81 2.59M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4"></path>
+                                    </svg>
+                                </button>
+                            </a>
 
-                                <td>${item.name}</td>
-                                <td>${item.address}</td>
-                                <td>${item.numberOfBasement}</td>
-                                <td>${item.managerPhone}</td>
-
-                                <td>${item.managerName}</td>
-                                <td>${item.floorArea}</td>
-                                <td>${item.rentArea}</td>
-
-                                <td>
-                                    <div>
-                                        <button title="Assignment Building" Onclick="assignmentBuilding(${item.id})" type="button" class="btn btn-success" >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase" viewBox="0 0 16 16">
-                                                <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5m1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0M1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5"></path>
-                                            </svg>
-                                        </button>
-                                        <a title="Update Building" href="/admin/building-edit-${item.id}">
-                                            <button type="button" class="btn btn-outline-danger">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-browser-chrome" viewBox="0 0 16 16">
-                                                    <path fill-rule="evenodd" d="M16 8a8 8 0 0 1-7.022 7.94l1.902-7.098a3 3 0 0 0 .05-1.492A3 3 0 0 0 10.237 6h5.511A8 8 0 0 1 16 8M0 8a8 8 0 0 0 7.927 8l1.426-5.321a3 3 0 0 1-.723.255 3 3 0 0 1-1.743-.147 3 3 0 0 1-1.043-.7L.633 4.876A8 8 0 0 0 0 8m5.004-.167L1.108 3.936A8.003 8.003 0 0 1 15.418 5H8.066a3 3 0 0 0-1.252.243 2.99 2.99 0 0 0-1.81 2.59M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4"></path>
-                                                </svg>
-                                            </button>
-                                        </a>
-
-                                            <button title="delete" type="button" class="btn btn-primary" onclick="deleteBuilding(${item.id})">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-archive" viewBox="0 0 16 16">
-                                                    <path d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"></path>
-                                                </svg>
-
-                                            </button>
-                                    </div>
-                                </td>
-
-                            </tr>
-                        </c:forEach>
-
-
-                        </tbody>
-                    </table>
-
-
+                            <button title="delete" type="button" class="btn btn-primary" onclick="deleteBuilding(${tableList.id})">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-archive" viewBox="0 0 16 16">
+                                    <path d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"></path>
+                                </svg>
+                            </button>
+                        </display:column>
+                    </display:table>
                 </div>
 
 
@@ -484,7 +457,7 @@
     }
     function testDelete(){
 
-        var data = $('#tableForm').find('tbody input[type = checkbox]:checked').map(function(){
+        var data = $('#tableList').find('tbody input[type = checkbox]:checked').map(function(){
             return $(this).val();
         }).get();
         // tra ve nhung cai da duoc tick

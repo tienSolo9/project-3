@@ -5,6 +5,9 @@ import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.repository.custom.IBuildingRepositoryCustom;
 import com.javaweb.utils.NumberUtils;
 import com.javaweb.utils.StringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -86,13 +89,22 @@ public class BuildingRepositoryImpl implements IBuildingRepositoryCustom {
         }
     }
     @Override
-    public List<BuildingEntity> getAllBuildings(BuildingDTO buildingDTO) {
+    public Page<BuildingEntity> getAllBuildings(BuildingDTO buildingDTO, Pageable pageable) {
         StringBuilder sql = new StringBuilder("Select b.* From building b ");
         StringBuilder where = new StringBuilder(" where 1 ");
         WhereQuery(where,buildingDTO);
         SpecialWhereQuery(where,buildingDTO);
-        sql.append(where);
+        sql.append(where).append(" LIMIT ").append(pageable.getPageSize()).append("\n")
+                .append(" OFFSET ").append(pageable.getOffset());
+
         Query query = entityManager.createNativeQuery(sql.toString(), BuildingEntity.class);
-        return query.getResultList();
+        List<BuildingEntity> resultList = query.getResultList();
+        Integer totalcount = resultList.size();
+        return new PageImpl<>(resultList, pageable, totalcount);
+    }
+
+    @Override
+    public int countTotalItem() {
+        return 0;
     }
 }
